@@ -28,14 +28,21 @@ function random_heatspots () {
     }
 }
 
+function move_up () {
+    this.canvas.push(new Array(this.max_x));
+    this.canvas.shift();
+}
+
 function Fire (context, max_x, max_y) {
-    this.max_x = max_x;
-    this.max_y = max_y;
-    this.context = context;
-    this.canvas = init_canvas(max_x, max_y);
+    this.max_x            = max_x;
+    this.max_y            = max_y;
+    this.context          = context;
+    this.canvas           = init_canvas(max_x, max_y);
     //methods
     this.random_heatspots = random_heatspots;
+    this.move_up          = move_up;
 }
+
 
 window.onload = function () {
     var canvas = document.getElementById('my_canvas');
