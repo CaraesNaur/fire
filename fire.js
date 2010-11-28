@@ -10,7 +10,8 @@ function get_random (number) {
 }
 
 function palette (index) {
-    return ("rgb(" + index + "," + parseInt(index / 4, 10) + ", 0)");
+    // even better than this would be a precreated palette of course
+    return ("rgb(" + index + "," + parseInt(index / 3, 10) + "," + parseInt(index / 5) + ")");
 }
 
 // x and y will be swapped, since it makes manipulating the fieldrows much easier
@@ -92,7 +93,7 @@ function Fire (context, max_x, max_y, scale, heat) {
 window.onload = function () {
     var canvas = document.getElementById('my_canvas');
     var ctx = canvas.getContext("2d");
-    var fire = new Fire(ctx, 60, 40, 10, 250);
+    var fire = new Fire(ctx, 60, 40, 10, 256);
     fire.draw_fire();
     fire_interval = setInterval(function () {
             fire.loop();
