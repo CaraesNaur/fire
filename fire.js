@@ -70,5 +70,6 @@ function Fire (context, max_x, max_y, heat) {
 window.onload = function () {
     var canvas = document.getElementById('my_canvas');
     var ctx = canvas.getContext("2d");
+    var fire = new Fire(ctx);
 };
 
