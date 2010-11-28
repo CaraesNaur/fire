@@ -1,8 +1,8 @@
-// oldschool fire effect, oem Wed Nov 24 06:45:44 2010
+// oldschool fire effect by oem
 // Algorithm:
+// -- move everything up a line
 // -- create random line at the bottom
 // -- interpolate every pixel with the 8 surrouding pixels
-// -- move everything up a line
 // -- loop
 
 function get_random (number) {
@@ -24,7 +24,7 @@ function init_canvas (x, y) {
 
 function random_heatspots () {
     for (var i = 0; i < this.canvas[0].length; i++) {
-        this.canvas[this.canvas.length - 1][i] = get_random(256);
+        this.canvas[this.canvas.length - 1][i] = get_random(this.heat);
     }
 }
 
@@ -46,15 +46,25 @@ function interpolate_point (x, y) {
     return (parseInt(color / neighbours, 10));
 }
 
-function Fire (context, max_x, max_y) {
-    this.max_x             = max_x;
-    this.max_y             = max_y;
+function interpolate_all () {
+    for (var x = 0; x < this.max_x; x++) {
+        for (var y = 0; y < this.max_y; y++) {
+            this.canvas[y][x] = this.interpolate_point(x, y);
+        }
+    }
+}
+
+function Fire (context, max_x, max_y, heat) {
+    this.max_x             = max_x || 320;
+    this.max_y             = max_y || 200;
+    this.heat              = heat || 256;
     this.context           = context;
     this.canvas            = init_canvas(max_x, max_y);
     //methods
     this.random_heatspots  = random_heatspots;
     this.move_up           = move_up;
     this.interpolate_point = interpolate_point;
+    this.interpolate_all   = interpolate_all;
 }
 
 window.onload = function () {
