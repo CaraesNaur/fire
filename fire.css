@@ -1,15 +1,60 @@
 body {
   font: 13px/1.5 "Helvetica Neue", Arial, sans-serif;
   background-color: #27282c;
+  color: #555;
+  padding: 0px;
+  margin: 0px;
+}
+
+a {
+  color: #aaffff;
+  text-decoration: none;
+  border-bottom: 1px dotted #aaffff;
+}
+
+a:hover {
   color: #fff;
+  border-bottom: none;
+}
+
+/* activate html5 elements */
+header, footer, canvas {
+  display: block;
 }
 
 /* page layout */
 #banner {
+  border-bottom: 1px solid #444;
+  padding-left: 60px;
 }
 
+  #banner h1 {
+    color: #111;
+    text-shadow: 0px 1px 1px #555;
+    width: 150px;
+    font-size: 2em;
+    line-height:0.8em;
+  }
+
 #content {
+  background-color: #303135;
+  clear: both;
+  border-top: 3px solid #111;
+}
+
+canvas {
+	width: 600px;
+	margin: 0 auto;
+	padding: 0;
 }
 
 #about {
+  border-top: 1px solid #444;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+#about p {
+  float: left;
+  padding-right: 50px;
 }

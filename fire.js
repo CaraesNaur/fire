@@ -10,7 +10,7 @@ function get_random (number) {
 }
 
 function palette (index) {
-    return ("rgb(" + index + ", 0, 0)");
+    return ("rgb(" + index + "," + parseInt(index / 4, 10) + ", 0)");
 }
 
 // x and y will be swapped, since it makes manipulating the fieldrows much easier
@@ -34,7 +34,7 @@ function move_up () {
 }
 
 function interpolate_point (x, y) {
-    var coords = [[x-1, y], [x+1, y], [x, y-1], [x, y+1], [x-1, y-1], [x-1, y+1], [x+1, y-1], [x+1, y+1]];
+    var coords = [[x-1, y], [x+1, y], [x, y-1], [x, y+1]];
     var color = 0;
     var neighbours = 0;
     for (var i = 0; i < coords.length; i++) {
@@ -43,6 +43,7 @@ function interpolate_point (x, y) {
             neighbours += 1;
         }
     }
+    color -= 5;
     return (parseInt(color / neighbours, 10));
 }
 
@@ -54,22 +55,46 @@ function interpolate_all () {
     }
 }
 
-function Fire (context, max_x, max_y, heat) {
+function draw_fire () {
+    for (var x = 0; x < this.max_x; x++) {
+        for (var y = 0; y < this.max_y - this.hotspots; y++) {
+            this.context.fillStyle = palette(this.canvas[y][x]);
+            this.context.fillRect(x*this.scale, y*this.scale, this.scale, this.scale);
+        }
+    }
+}
+
+function loop () {
+    this.move_up();
+    this.random_heatspots();
+    this.interpolate_all();
+    this.draw_fire();
+}
+
+function Fire (context, max_x, max_y, scale, heat) {
     this.max_x             = max_x || 320;
     this.max_y             = max_y || 200;
     this.heat              = heat || 256;
+    this.scale             = scale || 1;
     this.context           = context;
-    this.canvas            = init_canvas(max_x, max_y);
+    this.canvas            = init_canvas(this.max_x, this.max_y);
+    this.hotspots = 2;
     //methods
     this.random_heatspots  = random_heatspots;
     this.move_up           = move_up;
     this.interpolate_point = interpolate_point;
     this.interpolate_all   = interpolate_all;
+    this.draw_fire         = draw_fire;
+    this.loop              = loop;
+    this.palette           = palette;
 }
 
 window.onload = function () {
     var canvas = document.getElementById('my_canvas');
     var ctx = canvas.getContext("2d");
-    var fire = new Fire(ctx);
+    var fire = new Fire(ctx, 60, 40, 10, 250);
+    fire.draw_fire();
+    fire_interval = setInterval(function () {
+            fire.loop();
+            }, 25);
 };
-
