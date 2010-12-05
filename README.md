@@ -1,19 +1,5 @@
-# Rubyflames
+# Oldschool fire effect with javascript + html5 canvas
 
-## Oldschool flames effect with ruby-processing
+You can see it in action over at [arachne](http://arachne.heroku.com/fire)
 
-![lowres flames](http://yfrog.com/emw3np "lowres flames")
-
-### Run it
-
-Download this repository and cd to the location you have saved it.
-
-`rp5 watch bin/rubyflames.rb`
-
-### points of interest
-
-The algorithm is encapsuled in the Fire::Canvas class ( in lib/fire/canvas.rb )
-
-### Dependencies
-
-ruby-processing
+Just poke me here on github if you'd like me to quickly explain the fire algorithm - it is dead simple actually.

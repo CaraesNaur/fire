@@ -24,8 +24,14 @@ function init_canvas (x, y) {
 }
 
 function random_heatspots () {
-    for (var i = 0; i < this.canvas[0].length; i++) {
-        this.canvas[this.canvas.length - 1][i] = get_random(this.heat);
+    var heatspots = 0;
+    var x = 0;
+    while (heatspots < this.heat) {
+        x = get_random(this.canvas[0].length);
+        if (this.canvas[this.canvas.length - 1][x] != 255) {
+            this.canvas[this.canvas.length - 1][x] = 255;
+            heatspots += 1;
+        }
     }
 }
 
@@ -44,7 +50,7 @@ function interpolate_point (x, y) {
             neighbours += 1;
         }
     }
-    color -= 5;
+    color -= this.cooldown;
     return (parseInt(color / neighbours, 10));
 }
 
@@ -75,11 +81,12 @@ function loop () {
 function Fire (context, max_x, max_y, scale, heat) {
     this.max_x             = max_x || 320;
     this.max_y             = max_y || 200;
-    this.heat              = heat || 256;
+    this.heat              = heat || 50;
     this.scale             = scale || 1;
     this.context           = context;
     this.canvas            = init_canvas(this.max_x, this.max_y);
-    this.hotspots = 2;
+    this.hotspots          = 1; // skip drawing the last x lines
+    this.cooldown          = 6;
     //methods
     this.random_heatspots  = random_heatspots;
     this.move_up           = move_up;
@@ -93,7 +100,7 @@ function Fire (context, max_x, max_y, scale, heat) {
 window.onload = function () {
     var canvas = document.getElementById('my_canvas');
     var ctx = canvas.getContext("2d");
-    var fire = new Fire(ctx, 60, 40, 10, 256);
+    var fire = new Fire(ctx, 60, 40, 10, 30);
     fire.draw_fire();
     fire_interval = setInterval(function () {
             fire.loop();
