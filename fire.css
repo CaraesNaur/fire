@@ -1,60 +1,55 @@
 body {
-  font: 13px/1.5 "Helvetica Neue", Arial, sans-serif;
-  background-color: #27282c;
-  color: #555;
-  padding: 0px;
-  margin: 0px;
+	font: 12pt "Helvetica Neue", Arial, sans-serif;
+	background-color: #000;
+	color: #333;
+	padding: 0;
+	margin: 0;
 }
 
 a {
-  color: #aaffff;
-  text-decoration: none;
-  border-bottom: 1px dotted #aaffff;
+	color: #f90;
 }
 
 a:hover {
-  color: #fff;
-  border-bottom: none;
+	color: #fc0;
 }
 
-/* activate html5 elements */
 header, footer, canvas {
-  display: block;
+	display: block;
 }
 
-/* page layout */
 #banner {
-  border-bottom: 1px solid #444;
-  padding-left: 60px;
+	border-bottom: 1px solid #000;
+	text-align: center;
 }
-
-  #banner h1 {
-    color: #111;
-    text-shadow: 0px 1px 1px #555;
-    width: 150px;
-    font-size: 2em;
-    line-height:0.8em;
-  }
+#banner h1 {
+	color: #000;
+	text-shadow: 0 -1px 1px #ff0, 0 -3px 3px #f60, 0 -6px 4px #600;
+	font-size: 2em;
+	line-height: .9;
+}
 
 #content {
-  background-color: #303135;
-  clear: both;
-  border-top: 3px solid #111;
+	background-color: #111;
+	clear: both;
+	padding: 1em 0;
 }
 
 canvas {
-	width: 600px;
+	width: 480px;
+	height: 320px;
 	margin: 0 auto;
 	padding: 0;
+	border: 1px solid #630;
+	background-color: #000;
+	box-sizing: content-box;
 }
 
 #about {
-  border-top: 1px solid #444;
-  padding-top: 10px;
-  padding-left: 20px;
+	border-top: 1px solid #000;
+	padding-top: 10px;
+	text-align: center;
 }
 
 #about p {
-  float: left;
-  padding-right: 50px;
 }
