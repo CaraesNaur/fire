@@ -16,8 +16,7 @@ property of the Fire object.
 Added 7th Fire constructor argument, speed, used as the delay argument for the
 animation timeout.
 
-Changed a lot of what happens inside interpolate_point().  Cooling is no longer
-linear, but based on a sine curve: cold colors cool faster.  Three new fire
+Changed a lot of what happens inside interpolate_point().  Three new fire
 properties (cf1, cf2, focus) affect how much a color cools.  The cf1 and cf2
 properties determine the random cooling range, focus sets how much influence
 the original color has in determining the cooled color.

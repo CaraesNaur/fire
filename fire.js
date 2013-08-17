@@ -3,7 +3,7 @@
  * Algorithm:
  * -- move everything up a line
  * -- create random line at the bottom
- * -- interpolate every pixel with the 4 surrouding edge-adjacent pixels
+ * -- interpolate every pixel with the 4 surrounding edge-adjacent pixels
  * -- repeat
  *
  *
@@ -13,17 +13,18 @@
 function Fire (context, max_x, max_y, scale, heat, pal, speed) {
 	var s = parseInt(speed);
 
-	this.max_x             = max_x || 320;
-	this.max_y             = max_y || 200;
-	this.heat              = heat || 50;
-	this.scale             = scale || 1;
-	this.context           = context;
-	this.canvas            = this.init_canvas(this.max_x, this.max_y);
-	this.hotspots          = 0; // skip drawing the last x lines
-	this.cooldown          = 5;
-	this.colors            = (pal instanceof Array) ? pal : Fire.prototype._default_colors;
-	this.timeout           = null;
-	this.speed             = (s > 50) ? s : 50;
+	this.max_x = max_x || 320;
+	this.max_y = max_y || 200;
+	this.heat = (heat <= max_x ? heat : max_x);
+	this.intensity = 100; // 0 .. 100
+	this.scale = scale || 1;
+	this.context = context;
+	this.canvas = this.init_canvas(this.max_x, this.max_y);
+	this.hotspots = 0; // skip drawing the last x lines
+	this.cooldown = 5;
+	this.colors = (pal instanceof Array) ? pal : Fire.prototype._default_colors;
+	this.timeout = null;
+	this.speed = (s > 50) ? s : 50;
 
 	// these three properties control the appearance of the fire
 	// cf1 and cf2 affect the cooling rate
@@ -36,8 +37,6 @@ function Fire (context, max_x, max_y, scale, heat, pal, speed) {
 	// to have all other rows dimmed
 	this.hl = null;
 }
-
-Fire.prototype._toRad = Math.PI / 180;
 
 Fire.prototype.burn = function (d) {
 	var f;
@@ -69,8 +68,8 @@ Fire.prototype.random_heatspots = function () {
 	while (heatspots < this.heat) {
 		x = (parseInt(Math.random() * this.max_x, 10));
 
-		if (this.canvas[this.canvas.length - 1][x] != (this.colors.length - 1)) {
-			this.canvas[this.canvas.length - 1][x] = this.colors.length;
+		if (this.canvas[this.canvas.length - 1][x] == 0) {
+			this.canvas[this.canvas.length - 1][x] = parseInt((this.intensity * (this.colors.length - 1)) / 100);
 			heatspots++;
 		}
 	}
@@ -83,8 +82,8 @@ Fire.prototype.move_up = function () {
 		n[i] = 0;
 	}
 
-	this.canvas.push(n);
 	this.canvas.shift();
+	this.canvas.push(n);
 }
 
 Fire.prototype.interpolate_point = function (x, y) {
@@ -95,8 +94,6 @@ Fire.prototype.interpolate_point = function (x, y) {
 		[x, y + 1]
 	];
 	var oc = Math.min(this.canvas[y][x], this.colors.length - 1);
-	var ocr = ((oc + 1) / this.colors.length) * .9;
-	var ocsin = 1 - Math.sin(ocr * this._toRad);
 	var color = oc * this.focus;
 	var neighbours = this.focus;
 
@@ -107,14 +104,18 @@ Fire.prototype.interpolate_point = function (x, y) {
 		}
 	}
 
-	color /= neighbours;
-	cool = parseInt(ocsin * (Math.random() * (this.cf1 * this.cf2)));
-
-	if (color < 0) {
-		color = 0;
+	if (color == 0) {
+		return color;
 	}
 
-	return (color == 0 ? 0 : (parseInt(Math.min(color, this.colors.length - 1), 10) - cool));
+	color /= neighbours;
+	cool = parseInt(Math.random() * (this.cf1 * this.cf2));
+
+	if ((color - cool) <= 0) {
+		return 0;
+	}
+
+	return (parseInt(Math.min(color, this.colors.length - 1), 10) - cool);
 }
 
 Fire.prototype.interpolate_all = function () {
