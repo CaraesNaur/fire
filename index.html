@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Fire by CaraesNaur</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Fire</h1>
+        <h2>oldschool fire effect in javascript</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/CaraesNaur/fire/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/CaraesNaur/fire/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/CaraesNaur/fire" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="oldschool-fire-effect-with-javascript--html5-canvas" class="anchor" href="#oldschool-fire-effect-with-javascript--html5-canvas"><span class="octicon octicon-link"></span></a>Oldschool fire effect with javascript + html5 canvas</h1>
+
+<p>Forked from <a href="https://github.com/oem/fire">https://github.com/oem/fire</a>.</p>
+
+<p>Refactored the Fire JS object to use prototype functions.</p>
+
+<p>Added a default palette of 100 RGB triplets.  Pass in another array as the 6th
+argument to the Fire constructor.</p>
+
+<p>Ensured that the canvas[y][x] values remain within the range 0 to the number of
+colors.</p>
+
+<p>Added burn() and out() functions to start/stop the fire.  The timeout is now a
+property of the Fire object.</p>
+
+<p>Added 7th Fire constructor argument, speed, used as the delay argument for the
+animation timeout.</p>
+
+<p>Changed a lot of what happens inside interpolate_point().  Three new fire
+properties (cf1, cf2, focus) affect how much a color cools.  The cf1 and cf2
+properties determine the random cooling range, focus sets how much influence
+the original color has in determining the cooled color.</p>
+
+<p>Moved the instantiation into the html file; fire.js is now just the object code.</p>
+
+<p>Put a new look and feel into the HTML/CSS.  Add a click handler to the canvas to
+allow the fire to be paused.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
