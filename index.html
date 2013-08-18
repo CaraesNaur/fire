@@ -6,9 +6,32 @@
 
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
     <title>Fire by CaraesNaur</title>
+	<script src="javascripts/fire.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	var canvas, ctx, fire;
+
+	window.onload = function () {
+		canvas = document.getElementById('demo_canvas');
+
+		canvas.onclick = function() {
+			if (fire.timeout == null) {
+				fire.burn();
+			}
+			else {
+				fire.out();
+			}
+		}
+
+		ctx = canvas.getContext('2d');
+		// context, max_x, max_y, scale, heat, pal, speed
+		fire = new Fire(ctx, 48, 32, 10, 32, null, 80);
+		fire.burn();
+	};
+
+
+	</script>
   </head>
 
   <body>
@@ -27,6 +50,15 @@
     </header>
 
     <div class="container">
+      <div id="demo_section">
+		<canvas id="demo_canvas" width="480" height="320">
+			Your browser doesn't support HTML5
+		</canvas>
+		<p>
+			Click the canvas to start/stop.
+		</p>
+
+      </div>
       <section id="main_content">
         <h1>
 <a name="oldschool-fire-effect-with-javascript--html5-canvas" class="anchor" href="#oldschool-fire-effect-with-javascript--html5-canvas"><span class="octicon octicon-link"></span></a>Oldschool fire effect with javascript + html5 canvas</h1>

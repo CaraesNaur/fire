@@ -77,10 +77,21 @@ header h2 {
 /* Main Content
 */
 
-#main_content {
+#main_content, #demo_section {
   width: 100%;
   -webkit-font-smoothing: antialiased;
 }
+
+#demo_canvas {
+	width: 480px;
+	height: 320px;
+	padding: 0;
+	border: 1px solid #B5E853;
+	background-color: #000;
+	box-sizing: content-box;
+}
+
+
 section img {
   max-width: 100%
 }
