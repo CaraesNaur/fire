@@ -143,18 +143,23 @@ Fire.prototype.loop = function () {
 }
 
 Fire.prototype.palette = function (index, b) {
+	var a = [], i;
 	if (typeof index != 'number') {
 		index = 0;
 	}
 
-	//make sure index in within the range 0..[this.colors.length - 1]
+	//make sure index is within the range 0..[this.colors.length - 1]
 	index = parseInt(Math.min(this.colors.length - 1, Math.max(index, 0)));
 
-	if (index >= this.colors.length) {
-		return ('rgb(' + this.colors[this.colors.length - 1].join(',') + ')');
+	if (b) {
+		return ('rgb(' + this.colors[index].join(',') + ')');
 	}
-
-	return ('rgb(' + this.colors[index].join(',') + ')');
+	else {
+		for (i = 0; i < 3; i++) {
+			a.push(parseInt(this.colors[Math.abs(index)][i] * .2));
+		}
+		return ('rgb(' + a.join(',') + ')');
+	}
 }
 
 Fire.prototype.init_canvas = function (x, y) {
